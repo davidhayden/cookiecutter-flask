@@ -1,5 +1,8 @@
+import os
+
+
 class Config(object):
-    SECRET_KEY = os.environ.get('{{cookiecutter.app_name | upper}}_SECRET', 'my-super-secret-key')
+    SECRET_KEY = os.environ.get('SECRET_KEY', 'my-super-secret-key')
 
 
 class DevConfig(Config):
