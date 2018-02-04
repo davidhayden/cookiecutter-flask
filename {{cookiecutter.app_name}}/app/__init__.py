@@ -1,10 +1,13 @@
 from flask import Flask
 from flask_bootstrap import Bootstrap
+from flask_login import LoginManager
 from flask_debugtoolbar import DebugToolbarExtension
 from app.settings import DevConfig
 
 
 bootstrap = Bootstrap()
+login = LoginManager()
+login.login_view = 'auth.login'
 toolbar = DebugToolbarExtension()
 
 
@@ -20,9 +23,13 @@ def create_app(config_object=DevConfig):
 
 def register_extensions(app):
     bootstrap.init_app(app)
+    login.init_app(app)
     toolbar.init_app(app)
 
 
 def register_blueprints(app):
+    from app.auth import bp as auth_bp
+    app.register_blueprint(auth_bp)
+
     from app.main import bp as main_bp
     app.register_blueprint(main_bp)
