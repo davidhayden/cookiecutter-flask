@@ -1,9 +1,11 @@
 from flask import Flask
 from flask_bootstrap import Bootstrap
+from flask_debugtoolbar import DebugToolbarExtension
 from app.settings import DevConfig
 
 
 bootstrap = Bootstrap()
+toolbar = DebugToolbarExtension()
 
 
 def create_app(config_object=DevConfig):
@@ -18,6 +20,7 @@ def create_app(config_object=DevConfig):
 
 def register_extensions(app):
     bootstrap.init_app(app)
+    toolbar.init_app(app)
 
 
 def register_blueprints(app):
