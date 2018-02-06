@@ -3,3 +3,6 @@ Flask-Bootstrap==3.3.7.1
 Flask-DebugToolbar==0.10.1
 Flask-Login==0.4.1
 Flask-WTF==0.14.2
+
+# Heroku
+gunicorn==19.7.1
