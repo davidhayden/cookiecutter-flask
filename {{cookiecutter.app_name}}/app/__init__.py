@@ -31,5 +31,8 @@ def register_blueprints(app):
     from app.auth import bp as auth_bp
     app.register_blueprint(auth_bp)
 
+    from app.dashboard import bp as dash_bp
+    app.register_blueprint(dash_bp)
+
     from app.main import bp as main_bp
     app.register_blueprint(main_bp)
