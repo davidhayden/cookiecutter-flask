@@ -1,4 +1,6 @@
+import click
 from flask import Flask
+from flask.cli import with_appcontext
 from flask_bootstrap import Bootstrap
 from flask_login import LoginManager
 from flask_debugtoolbar import DebugToolbarExtension
@@ -19,6 +21,7 @@ def create_app(config_object=DevConfig):
 
     register_extensions(app)
     register_blueprints(app)
+    register_commands(app)
 
     return app
 
@@ -39,3 +42,12 @@ def register_blueprints(app):
 
     from app.main import bp as main_bp
     app.register_blueprint(main_bp)
+
+def register_commands(app):
+    app.cli.add_command(db_init)
+
+
+@click.command()
+@with_appcontext
+def db_init():
+    db.create_all()
