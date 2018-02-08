@@ -2,9 +2,11 @@ from flask import Flask
 from flask_bootstrap import Bootstrap
 from flask_login import LoginManager
 from flask_debugtoolbar import DebugToolbarExtension
+from flask_sqlalchemy import SQLAlchemy
 from app.settings import DevConfig
 
 
+db = SQLAlchemy()
 bootstrap = Bootstrap()
 login = LoginManager()
 login.login_view = 'auth.login'
@@ -22,6 +24,7 @@ def create_app(config_object=DevConfig):
 
 
 def register_extensions(app):
+    db.init_app(app)
     bootstrap.init_app(app)
     login.init_app(app)
     toolbar.init_app(app)
