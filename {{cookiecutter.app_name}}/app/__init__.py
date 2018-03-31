@@ -3,7 +3,7 @@ from flask_bootstrap import Bootstrap
 from flask_login import LoginManager
 from flask_debugtoolbar import DebugToolbarExtension
 from flask_sqlalchemy import SQLAlchemy
-from app.settings import DevConfig
+from settings import Config
 
 
 db = SQLAlchemy()
@@ -13,7 +13,7 @@ login.login_view = 'auth.login'
 toolbar = DebugToolbarExtension()
 
 
-def create_app(config_object=DevConfig):
+def create_app(config_object=Config):
     app = Flask(__name__)
     app.config.from_object(config_object)
 
