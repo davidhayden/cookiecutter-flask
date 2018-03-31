@@ -1,0 +1,39 @@
+{% raw %}
+{% extends "base.html" %}
+
+{% block app_content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Register</h1>
+            <form action="" method="post" name="register">
+                {{ form.csrf_token }}
+                <div class="form-group">
+                {{ form.username(class="form-control", placeholder="Enter username...") }}
+                </div>
+                {% for error in form.username.errors %}
+                <p class="text-danger">{{ error }}</p>
+                {% endfor %}
+                <div class="form-group">
+                {{ form.email(class="form-control", placeholder="Enter email...") }}
+                </div>
+                {% for error in form.email.errors %}
+                <p class="text-danger">{{ error }}</p>
+                {% endfor %}
+                <div class="form-group">
+                {{ form.password(class="form-control", placeholder="Enter password...") }}
+                </div>
+                {% for error in form.password.errors %}
+                <p class="text-danger">{{ error }}</p>
+                {% endfor %}
+                <div class="form-group">
+                {{ form.confirm_password(class="form-control", placeholder="Confirm password...") }}
+                </div>
+                {% for error in form.confirm_password.errors %}
+                <p class="text-danger">{{ error }}</p>
+                {% endfor %}
+                {{ form.submit(class="btn btn-primary") }}
+            </form>
+        </div>
+    </div>
+{% endblock %}
+{% endraw %}
