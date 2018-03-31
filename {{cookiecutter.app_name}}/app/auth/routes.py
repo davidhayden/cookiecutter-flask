@@ -2,7 +2,7 @@ from flask import flash, redirect, render_template, request, url_for
 from flask_login import current_user, login_user, logout_user
 from app.auth import bp
 from app.auth.forms import LoginForm
-from app.auth.models import load_user, User
+from app.models import load_user, User
 
 
 @bp.route('/login', methods=['GET', 'POST'])

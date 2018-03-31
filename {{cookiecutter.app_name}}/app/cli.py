@@ -1,6 +1,6 @@
 import click
 from app import db
-from app.auth.models import User
+from app.models import User
 
 
 def register(app):
