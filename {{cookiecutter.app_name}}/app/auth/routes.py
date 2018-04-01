@@ -3,6 +3,7 @@ from flask_login import current_user, login_user, logout_user
 from app import db
 from app.auth import bp
 from app.auth.forms import LoginForm, RegisterForm, ResetPasswordRequestForm
+from app.auth.email import send_reset_password_email
 from app.models import load_user, User
 
 
@@ -55,10 +56,18 @@ def register():
 
 @bp.route('/reset-password-request', methods=['GET', 'POST'])
 def reset_password_request():
+    if current_user.is_authenticated:
+        return redirect(url_for('main.index'))
+
     form = ResetPasswordRequestForm()
 
     if form.validate_on_submit():
-        flash('Reset password email sent.')
+        user = User.query.filter_by(username=form.username.data).first()
+
+        if user:
+            send_reset_password_email(user)
+
+        flash('An email has been sent with instructions on resetting your password.')
         return redirect(url_for('auth.login'))
 
     return render_template('auth/reset_password_request.html', form=form)
