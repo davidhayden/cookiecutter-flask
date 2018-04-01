@@ -2,7 +2,7 @@ from flask import flash, redirect, render_template, request, url_for
 from flask_login import current_user, login_user, logout_user
 from app import db
 from app.auth import bp
-from app.auth.forms import LoginForm, RegisterForm
+from app.auth.forms import LoginForm, RegisterForm, ResetPasswordRequestForm
 from app.models import load_user, User
 
 
@@ -28,10 +28,12 @@ def login():
 
     return render_template('auth/login.html', form=form)
 
+
 @bp.route('/logout', methods=['GET'])
 def logout():
     logout_user()
     return redirect(url_for('main.index'))
+
 
 @bp.route('/register', methods=['GET', 'POST'])
 def register():
@@ -49,3 +51,14 @@ def register():
         return redirect(url_for('auth.login'))
 
     return render_template('auth/register.html', form=form)
+
+
+@bp.route('/reset-password-request', methods=['GET', 'POST'])
+def reset_password_request():
+    form = ResetPasswordRequestForm()
+
+    if form.validate_on_submit():
+        flash('Reset password email sent.')
+        return redirect(url_for('auth.login'))
+
+    return render_template('auth/reset_password_request.html', form=form)

@@ -13,7 +13,7 @@ class LoginForm(FlaskForm):
 
 class RegisterForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(message='Username required.')])
-    email = StringField('Email', validators=[DataRequired(message='Email required.'), Email(message='Valid Email Required.')])
+    email = StringField('Email', validators=[DataRequired(message='Email required.'), Email(message='Valid Email required.')])
     password = PasswordField('Password', validators=[DataRequired(message='Password required.')])
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired('Confirm Password required.'), EqualTo('password', message='Passwords must match.')])
     submit = SubmitField('Register')
@@ -27,3 +27,8 @@ class RegisterForm(FlaskForm):
         user = User.query.filter_by(email = email.data).first()
         if user is not None:
             raise ValidationError('Please choose a different email.')
+
+
+class ResetPasswordRequestForm(FlaskForm):
+    email = StringField('Email', validators=[DataRequired(message='Email required.'), Email(message='Valid Email required.')])
+    submit = SubmitField('Reset')
